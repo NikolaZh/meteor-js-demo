@@ -1,0 +1,27 @@
+FROM node:20-bookworm-slim
+
+RUN apt-get update && apt-get install -y \
+  bash \
+  curl \
+  python3 \
+  make \
+  g++ \
+  git \
+  && rm -rf /var/lib/apt/lists/*
+
+ENV HOME=/home/node
+ENV PATH=${HOME}/.meteor:${PATH}
+
+WORKDIR /app
+
+RUN mkdir -p /app/node_modules \
+    /app/.meteor/local \
+    /home/node/.meteor \
+    /home/node/.npm \
+    && chown -R node:node /app /home/node
+
+USER node
+
+RUN curl https://install.meteor.com/ | sh
+
+EXPOSE 3000

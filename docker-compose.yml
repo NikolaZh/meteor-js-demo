@@ -1,0 +1,50 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: meteor-react-app
+    working_dir: /app
+    command: sh -c "meteor npm install && meteor run --port $$PORT"
+    environment:
+      NODE_ENV: development
+      PORT: 3000
+      ROOT_URL: http://localhost:3000
+      MYSQL_HOST: mysql
+      MYSQL_PORT: 3310
+      MYSQL_DATABASE: db_demo
+      MYSQL_USER: meteor
+      MYSQL_PASSWORD: meteor
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - app_node_modules:/app/node_modules
+      - meteor_local:/app/.meteor/local
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  mysql:
+    image: mysql:8
+    container_name: meteor-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: db_demo
+      MYSQL_USER: meteor
+      MYSQL_PASSWORD: meteor
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3310:3310"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -proot --silent"]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+
+volumes:
+  app_node_modules:
+  meteor_local:
+  mysql_data:

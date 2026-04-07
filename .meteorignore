@@ -1,0 +1,5 @@
+docker/
+docs/
+coverage/
+*.md
+!README.md
