@@ -11,7 +11,7 @@ services:
       PORT: 3000
       ROOT_URL: http://localhost:3000
       MYSQL_HOST: mysql
-      MYSQL_PORT: 3310
+      MYSQL_PORT: 3306
       MYSQL_DATABASE: db_demo
       MYSQL_USER: meteor
       MYSQL_PASSWORD: meteor
@@ -35,7 +35,7 @@ services:
       MYSQL_PASSWORD: meteor
       MYSQL_ROOT_PASSWORD: root
     ports:
-      - "3310:3310"
+      - "3310:3306"
     volumes:
       - mysql_data:/var/lib/mysql
     healthcheck:

@@ -9,6 +9,8 @@
     "jsx": "preserve",
     "incremental": true,
     "noEmit": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
 
     /* Strict Type-Checking Options */
     "strict": true,
