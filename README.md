@@ -18,7 +18,7 @@ Current database settings:
 - Password: `meteor`
 - Root password: `root`
 
-## How to Start the Project. At the project folder commands:
+## How to Start the Project. At the project folder run commands:
 
 1. For a clean first run:
 
