@@ -1,10 +1,7 @@
-import { Hello } from './Hello';
-import { Info } from './Info';
+import { CustomersTable } from './CustomersTable';
 
 export const App = () => (
   <div>
-    <h1>Welcome to Meteor!</h1>
-    <Hello />
-    <Info />
+    <CustomersTable />
   </div>
 );

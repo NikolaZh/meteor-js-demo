@@ -17,6 +17,7 @@ services:
       MYSQL_PASSWORD: meteor
     ports:
       - "3000:3000"
+      - "8080:8080"
     volumes:
       - .:/app
       - app_node_modules:/app/node_modules
@@ -29,6 +30,10 @@ services:
     image: mysql:8
     container_name: meteor-mysql
     restart: unless-stopped
+    command:
+      - --server-id=1
+      - --log-bin=mysql-bin
+      - --binlog-format=ROW
     environment:
       MYSQL_DATABASE: db_demo
       MYSQL_USER: meteor
@@ -38,6 +43,7 @@ services:
       - "3310:3306"
     volumes:
       - mysql_data:/var/lib/mysql
+      - ./docker/mysql/init:/docker-entrypoint-initdb.d:ro
     healthcheck:
       test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -proot --silent"]
       interval: 10s
